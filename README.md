@@ -1,59 +1,31 @@
-# Boardgame Recommender
+# Proiect Sisteme de Recomandare Boardgames - Milestone 2
 
-A hybrid recommendation engine for board games built with Python and Recombee. [cite_start]This system combines collaborative filtering (user interactions) with content-based filtering (game metadata) to deliver personalized game suggestions and address the "cold start" problem for new users[cite: 7, 9, 91].
+## Project Overview
+This project implements a hybrid recommendation system for board games using the Recombee platform. It combines Collaborative Filtering (based on user interactions) and Content-Based Filtering (based on game metadata) to provide personalized suggestions.
 
 ## Features
 
-* [cite_start]**Hybrid Recommendation System:** Combines user interaction history with game metadata (categories, mechanics, playtime) to generate recommendations[cite: 91, 95].
-* [cite_start]**Cold Start Handling:** Implements a "Twitter-style" onboarding flow where new users select preferences (categories, age, player count) to receive instant, relevant suggestions via ReQL filtering[cite: 121, 122].
-* [cite_start]**Data Cleaning Pipeline:** Automated preprocessing to sanitize "dirty" dataset inputs, removing irrelevant tags (e.g., "Nominee", "Winner") and standardizing categories[cite: 113, 114].
-* [cite_start]**Scalable Architecture:** Capable of handling board game entries with support for international character sets[cite: 103].
+### Hybrid Recommendation Engine
+* **Collaborative Filtering:** Uses a matrix of interactions based on synthetic user ratings.
+* **Content-Based Filtering:** Utilizes game metadata such as categories, mechanics, age, and player count.
 
-## Dataset
+### Cold Start Solution (Twitter-style Onboarding)
+To address new users with no history:
+* Users select preferences explicitly via a CLI interface (categories, age group, number of players).
+* The system constructs dynamic ReQL (Recombee Query Language) filters to provide immediate recommendations.
+* Logic: (Selected Category) AND (Age Constraint) AND (Player Count Constraint).
 
-[cite_start]The project utilizes the **20,000 Boardgames Dataset** from Kaggle, processed and optimized for the Recombee free tier[cite: 16, 97].
-* [cite_start]**Source:** Kaggle Boardgames Dataset[cite: 16].
-* [cite_start]**Size:** Filtered from 20,000 to 15,000 unique titles to respect plan limits[cite: 100].
-* [cite_start]**Attributes:** Includes game mechanics, categories, complexity (weight), play time, and age constraints[cite: 20, 21, 22].
+### Data Processing & Quality
+* **Source:** Kaggle "20,000 Boardgames Dataset".
+* **Filtering:** Reduced to 15,000 items to fit the Recombee free tier.
+* **Cleaning Pipeline:** Implements a strict cleaning function to remove "dirty data" from the categories column (e.g., removing non-category tags like "Nominee", "Winner", or years).
+* **Normalization:** Handles Unicode characters (e.g., Chinese titles) and maps ratings from a 1-10 scale to the Recombee -1.0 to 1.0 scale.
 
-## Tech Stack
-
-* [cite_start]**Language:** Python [cite: 101]
-* [cite_start]**Engine:** Recombee (Recommendation-as-a-Service) [cite: 93]
-* [cite_start]**Libraries:** `recombee-api-client`, `pandas`, `beautifulsoup4` (for HTML cleaning), `unidecode`[cite: 101, 108].
-
-## Setup and Usage
-
-1.  **Clone the repository:**
-    ```bash
-    git clone [https://github.com/your-username/boardgame-recommender.git](https://github.com/your-username/boardgame-recommender.git)
-    cd boardgame-recommender
-    ```
-
-2.  **Install dependencies:**
-    ```bash
-    pip install recombee-api-client pandas beautifulsoup4 unidecode
-    ```
-
-3.  **Configure API Keys:**
-    Update the `DB_ID` and `PRIVATE_TOKEN` in the script with your Recombee credentials.
-
-4.  **Run the Jupyter Notebook:**
-    The main logic is contained in `boardgames.ipynb`. Running the cells will:
-    * [cite_start]Preprocess and clean the local dataset[cite: 116].
-    * Sync items and users to the Recombee database.
-    * [cite_start]Generate synthetic ratings for testing[cite: 110].
-    * Demonstrate recommendation scenarios (User-specific & Advanced Search).
-
-## Recommendation Logic
-
-The system operates on two levels:
-
-1.  [cite_start]**Personalized Recommendations:** Uses synthetic rating data (converted to a -1.0 to 1.0 scale) to predict games a user will like based on similar users[cite: 110].
-2.  [cite_start]**Advanced Search (Cold Start):** A CLI-based tool allows users to filter using ReQL (Recombee Query Language) based on the following logic[cite: 124, 125]:
-    * `(SelectedCategory OR AlternativeCategory) AND (MinAge <= UserAge) AND (MinPlayers <= UserCount <= MaxPlayers)`
+## Technology Stack
+* **Platform:** Recombee (Recommendation-as-a-Service)
+* **Language:** Python
+* **Libraries:** `recombee-api-client`, `pandas`, `beautifulsoup4` (HTML cleaning), `unidecode`.
 
 ## Authors
-
-* [cite_start]**Burnichi Alexandra** [cite: 3, 88]
-* [cite_start]**Ardeleanu Călin-Veniamin** [cite: 4, 89]
+* Burnichi Alexandra
+* Ardeleanu Călin-Veniamin
