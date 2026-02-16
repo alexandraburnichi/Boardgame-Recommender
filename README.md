@@ -29,3 +29,7 @@ To address new users with no history:
 ## Authors
 * Burnichi Alexandra
 * Ardeleanu Călin-Veniamin
+
+## Architecture
+
+See [ARCHITECTURE.md](./ARCHITECTURE.md) for a visual explanation of how this app wraps the original notebook logic.

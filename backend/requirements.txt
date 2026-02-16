@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+recombee-api-client
+pandas
+beautifulsoup4
+unidecode
+python-multipart
