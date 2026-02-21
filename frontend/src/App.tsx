@@ -13,6 +13,7 @@ function App() {
 
   const [isLoading, setIsLoading] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);
+  const [showInfo, setShowInfo] = useState(false);
 
   // Typewriter animation for subtitles
   const line1 = '</> Hei :)';
@@ -96,11 +97,41 @@ function App() {
         />
       )}
 
+      {showInfo && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
+          onClick={() => setShowInfo(false)}
+        >
+          <div
+            className="relative max-w-lg w-full mx-4 animate-fade-in-up bg-[#111] p-3 rounded-lg border border-white/10 shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setShowInfo(false)}
+              className="absolute -top-10 right-0 text-gray-400 hover:text-white font-mono text-sm transition-colors cursor-pointer"
+            >
+              [ ESC ]
+            </button>
+            <img
+              src="/image.png"
+              alt="System Architecture"
+              className="w-full rounded border border-white/10"
+            />
+          </div>
+        </div>
+      )}
+
       <div className="border-b border-white mb-12">
         <div className="container mx-auto px-4 py-6 flex flex-col md:flex-row justify-between items-center gap-4">
           <div>
-            <h1 className="text-2xl md:text-4xl font-bold text-white tracking-tighter">
+            <h1 className="text-2xl md:text-4xl font-bold text-white tracking-tighter flex items-center gap-2">
               &gt; BOARDGAME_RECOMMENDER_V1 <span className="animate-pulse">_</span>
+              <button
+                onClick={() => setShowInfo(true)}
+                className="text-sm md:text-base text-gray-600 hover:text-white border border-gray-700 hover:border-white rounded-full w-6 h-6 md:w-7 md:h-7 flex items-center justify-center transition-all duration-200 cursor-pointer hover:scale-110"
+              >
+                ?
+              </button>
             </h1>
             <p className="text-xs md:text-sm font-mono text-gray-500 tracking-widest mt-1 ml-6">
               {typed1}{typed1.length < line1.length && showCursor ? <span className="animate-pulse">▌</span> : ''}
