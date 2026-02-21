@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { DiscoveryWizard } from './components/DiscoveryWizard'
 import { GameCard } from './components/GameCard'
 import { GameDetailsModal } from './components/GameDetailsModal'
@@ -13,6 +13,59 @@ function App() {
 
   const [isLoading, setIsLoading] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);
+
+  // Typewriter animation for subtitles
+  const line1 = '</> Hei :)';
+  const line2 = '</> nice clean work, thought id contribute a smile here';
+  const line3 = '</> sper să nu dai reject la PR :)';
+  const line4 = '</> aHR0cHM6Ly9vcGVuLnNwb3RpZnkuY29tL3RyYWNrLzFSQ3RITHlxMXhJYmdHTXJZUnJLSjI/c2k9YTgwOGU3ZTcxZmU1NDc3Yw==';
+  const [typed1, setTyped1] = useState('');
+  const [typed2, setTyped2] = useState('');
+  const [typed3, setTyped3] = useState('');
+  const [typed4, setTyped4] = useState('');
+  const [showCursor, setShowCursor] = useState(true);
+
+  useEffect(() => {
+    let i = 0;
+    const speed = 75;
+    const timer1 = setInterval(() => {
+      if (i < line1.length) {
+        setTyped1(line1.slice(0, i + 1));
+        i++;
+      } else {
+        clearInterval(timer1);
+        let j = 0;
+        const timer2 = setInterval(() => {
+          if (j < line2.length) {
+            setTyped2(line2.slice(0, j + 1));
+            j++;
+          } else {
+            clearInterval(timer2);
+            let k = 0;
+            const timer3 = setInterval(() => {
+              if (k < line3.length) {
+                setTyped3(line3.slice(0, k + 1));
+                k++;
+              } else {
+                clearInterval(timer3);
+                let l = 0;
+                const timer4 = setInterval(() => {
+                  if (l < line4.length) {
+                    setTyped4(line4.slice(0, l + 1));
+                    l++;
+                  } else {
+                    clearInterval(timer4);
+                    setTimeout(() => setShowCursor(false), 1500);
+                  }
+                }, speed);
+              }
+            }, speed);
+          }
+        }, speed);
+      }
+    }, speed);
+    return () => clearInterval(timer1);
+  }, []);
 
   const handleLogin = async () => {
     if (!userIdInput.trim()) return;
@@ -45,9 +98,23 @@ function App() {
 
       <div className="border-b border-white mb-12">
         <div className="container mx-auto px-4 py-6 flex flex-col md:flex-row justify-between items-center gap-4">
-          <h1 className="text-2xl md:text-4xl font-bold text-white tracking-tighter">
-            &gt; BOARDGAME_RECOMMENDER_V1 <span className="animate-pulse">_</span>
-          </h1>
+          <div>
+            <h1 className="text-2xl md:text-4xl font-bold text-white tracking-tighter">
+              &gt; BOARDGAME_RECOMMENDER_V1 <span className="animate-pulse">_</span>
+            </h1>
+            <p className="text-xs md:text-sm font-mono text-gray-500 tracking-widest mt-1 ml-6">
+              {typed1}{typed1.length < line1.length && showCursor ? <span className="animate-pulse">▌</span> : ''}
+            </p>
+            <p className="text-xs md:text-sm font-mono text-gray-500 tracking-widest mt-0.5 ml-6" style={{ minHeight: '1.25em' }}>
+              {typed2}{typed1.length >= line1.length && typed2.length < line2.length && showCursor ? <span className="animate-pulse">▌</span> : ''}
+            </p>
+            <p className="text-xs md:text-sm font-mono text-gray-500 tracking-widest mt-0.5 ml-6" style={{ minHeight: '1.25em' }}>
+              {typed3}{typed2.length >= line2.length && typed3.length < line3.length && showCursor ? <span className="animate-pulse">▌</span> : ''}
+            </p>
+            <p className="text-xs md:text-sm font-mono text-gray-500 tracking-widest mt-0.5 ml-6" style={{ minHeight: '1.25em' }}>
+              {typed4}{typed3.length >= line3.length && typed4.length < line4.length && showCursor ? <span className="animate-pulse">▌</span> : ''}
+            </p>
+          </div>
 
           <div className="flex items-center gap-2">
             {currentUser ? (
