@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-[#0a0a0a] text-white font-mono antialiased;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+  background: #000;
+  border-left: 1px solid #333;
+}
+
+::-webkit-scrollbar-track {
+  background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #fff;
+  border: 2px solid #000;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ccc;
+}
